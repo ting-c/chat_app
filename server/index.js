@@ -1,6 +1,6 @@
 const app = require("express")();
 const server = require("http").createServer(app);
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, { wsEngine: "ws" });
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
 
@@ -34,9 +34,13 @@ io.on("connection", (socket) => {
 	socket.on('sendMessage', (message, callback) => {
 		const user = getUser(socket.id);
 
-		io.to(user.room).emit('message', {
+		const hour = new Date().getHours();
+		const minute = new Date().getMinutes();
+
+		io.to(user.room).emit("message", {
 			user: user.name,
-			text: message
+			text: message,
+			time: `${hour}:${minute}`
 		});
 
 		callback();

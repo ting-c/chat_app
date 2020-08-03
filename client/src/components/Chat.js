@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
+import ChatInfo from './ChatInfo';
+import Messages from './Messages';
+import MessageInput from './MessageInput';
 
 let socket;
 
@@ -9,7 +12,7 @@ const Chat = ({ location }) => {
   const [room, setRoom] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const ENDPOINT = 'localhost:5000'
+  const ENDPOINT = 'localhost:5000';
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -17,7 +20,6 @@ const Chat = ({ location }) => {
     socket = io(ENDPOINT);
     setRoom(room);
     setName(name);
-    console.log(room)
 
     socket.emit('join', { name, room }, (error) => {
       if (error) {
@@ -44,17 +46,13 @@ const Chat = ({ location }) => {
     }
   };
 
-  console.log(message, messages);
-
   return (
-    <div className="container">
-      <div className="row">
-        <form onSubmit={(e) => sendMessage(e)}>
-          <input value={message} onChange={(e) => setMessage(e.target.value)} />
-        </form>
-      </div>
-    </div>
-  )
+		<div className="container-fluid min-vh-100">
+			<ChatInfo {...{ name, room }} />
+			<Messages {...{ messages, name }} />
+			<MessageInput {...{ message, sendMessage, setMessage }} />
+		</div>
+	);
 }
 
 export default Chat
