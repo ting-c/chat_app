@@ -23,7 +23,7 @@ const MessageInput = ({ message, sendMessage, setMessage }) => {
 				<div className="col-3 p-2">
 					<button
 						className="btn btn-info"
-						style={{ width: "100%", height: "100%", borderRadius: "1.2rem" }}
+						style={{ width: "100%", height: "100%", borderRadius: "0.6rem" }}
 					>
 						Send
 					</button>

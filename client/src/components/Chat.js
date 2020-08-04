@@ -12,6 +12,7 @@ const Chat = ({ location }) => {
   const [room, setRoom] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [users, setUsers] = useState([]);
   const ENDPOINT = 'localhost:5000';
 
   useEffect(() => {
@@ -39,6 +40,12 @@ const Chat = ({ location }) => {
     })
   }, [messages]);
 
+  useEffect(() => {
+    socket.on('roomInfo', ({ room, users }) => {
+      setUsers(users);
+    })
+  }, [users]);
+
   function sendMessage(e) {
     e.preventDefault();
     if (message) {
@@ -48,7 +55,7 @@ const Chat = ({ location }) => {
 
   return (
 		<div className="container-fluid min-vh-100">
-			<ChatInfo {...{ name, room }} />
+			<ChatInfo {...{ name, room, users }} />
 			<Messages {...{ messages, name }} />
 			<MessageInput {...{ message, sendMessage, setMessage }} />
 		</div>

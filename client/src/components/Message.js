@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactEmoji from 'react-emoji';
 
 const Message = ({ message, name }) => {
 	const messageBlockClass =
@@ -29,7 +30,7 @@ const Message = ({ message, name }) => {
 	}
 
 	return (
-		<div className={`py-1 ${messageBlockClass}`}>
+		<div className={`my-2 ${messageBlockClass}`} style={{height: 'auto'}}>
 			<div
 				className={`card py-1 shadow-sm ${messageClass}`}
 				style={{ wordBreak: "break-word", maxWidth: "60%", minWidth: '30%', borderRadius: '0.8rem' }}
@@ -42,7 +43,7 @@ const Message = ({ message, name }) => {
 						{messageUserName}
 					</div>
 					<div className="card-text p-0">
-						<p>{message.text}</p>
+						<p>{ReactEmoji.emojify(message.text)}</p>
 						<small className="text-muted p-0">{message.time}</small>
 					</div>
 				</div>

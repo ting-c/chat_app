@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ChatInfo = ({ name, room }) => {
+const ChatInfo = ({ name, room, users }) => {
+  
   return (
 		<div
-			className="row sticky-top p-2 bg-success text-light shadow-sm"
+			className="row sticky-top p-2 bg-info text-light shadow-sm"
 			style={{ height: "10vh", width: "100vw" }}
 		>
-			<table className="col-5" style={{ height: "80%", margin: "auto 0" }}>
+			<table className="col-6" style={{ height: "80%", margin: "auto 0" }}>
 				<tbody>
 					<tr>
 						<th>User :</th>
@@ -19,7 +20,27 @@ const ChatInfo = ({ name, room }) => {
 					</tr>
 				</tbody>
 			</table>
-			<div className="col-4" />
+
+			<div className="col-3 dropdown my-auto">
+				<button
+					className="btn text-light dropdown-toggle"
+					id="dropdownMenu"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					Users
+				</button>
+
+				<ul className="dropdown-menu" aria-labelledby="dropdownMenu">
+					{users.map((user, idx) => (
+						<li className="dropdown-item" key={idx}>
+							{user.name}
+						</li>
+					))}
+				</ul>
+			</div>
+
 			<button
 				className="col-3 btn float-right"
 				style={{ height: "80%", margin: "auto 0" }}
