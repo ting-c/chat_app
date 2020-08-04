@@ -1,5 +1,10 @@
 # dependencies
 /client/node_modules
+/client/.firebaserc
+/client/firebase.json
+/client/.firebase
+/client/build
+
 /server/node_modules
 
 # misc

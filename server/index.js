@@ -1,6 +1,7 @@
 const app = require("express")();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, { wsEngine: "ws" });
+const cors = require('cors');
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
 
@@ -71,5 +72,6 @@ io.on("connection", (socket) => {
 });
 
 app.use(router);
+app.use(cors());
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
